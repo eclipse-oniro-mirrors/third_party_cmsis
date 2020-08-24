@@ -1,0 +1,13 @@
+[
+    {
+        "Name"                  : "CMSIS",
+        "License"               : "Apache License V2.0",
+        "License File"          : "LICENSE.txt",
+        "Version Number"        : "5.6.0",
+        "Owner"                 : "denny.shenwei@huawei.com",
+        "PDM Number"            : "05833WBE",
+        "Upstream URL"          : "http://www.arm.com/zh/products/processors/cortex-m/cortex-microcontroller-software-interface-standard.php",
+        "Use Application URL"   : "http://pdm.huawei.com/Windchill/hwdispatcher/iris/?status=view&wfprocessid=67672871298&wfactivityid=67672866130&lang=e",
+        "Description"           : "The Cortex Microcontroller Software Interface Standard (CMSIS) is a vendor-independent hardware abstraction layer for microcontrollers that are based on Arm® Cortex® processors"
+    }
+]
