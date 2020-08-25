@@ -147,7 +147,7 @@ typedef enum {
   osPriorityNone          =  0,
   /** Reserved for idle threads */
   osPriorityIdle          =  1,
-  /** Low */
+  /** Low (unsupported) */
   osPriorityLow           =  8,
   /** Low + 1 */
   osPriorityLow1          =  8+1,
@@ -209,7 +209,7 @@ typedef enum {
   osPriorityAboveNormal5  = 32+5,
   /** Above normal + 6 */
   osPriorityAboveNormal6  = 32+6,
-  /** Above normal + 7 */
+  /** Above normal + 7 (unsupported) */
   osPriorityAboveNormal7  = 32+7,
   /** High (unsupported) */
   osPriorityHigh          = 40,
