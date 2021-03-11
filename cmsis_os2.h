@@ -511,17 +511,17 @@ typedef struct {
   /** Size of the memory for the semaphore control block */
   uint32_t                   cb_size;
 } osSemaphoreAttr_t;
- 
+
 
 typedef struct {
   const char                   *name;
   uint32_t                 attr_bits;
-  void                      *cb_mem; 
+  void                      *cb_mem;
   uint32_t                   cb_size;
-  void                      *mp_mem; 
+  void                      *mp_mem;
   uint32_t                   mp_size;
 } osMemoryPoolAttr_t;
- 
+
 /**
 * @brief Describes message queue attributes.
 *
@@ -542,10 +542,10 @@ typedef struct {
   /** Size of the memory for storing data in the message queue */
   uint32_t                   mq_size;
 } osMessageQueueAttr_t;
- 
- 
+
+
 //  ==== Kernel Management Functions ====
- 
+
 /**
 * @brief Initializes the RTOS kernel.
 *
@@ -554,7 +554,7 @@ typedef struct {
 * @version 1.0
 */
 osStatus_t osKernelInitialize (void);
- 
+
 /**
 * @brief Obtains the system version and name.
 *
@@ -566,7 +566,7 @@ osStatus_t osKernelInitialize (void);
 * @version 1.0
 */
 osStatus_t osKernelGetInfo (osVersion_t *version, char *id_buf, uint32_t id_size);
- 
+
 /**
 * @brief Obtains the kernel state.
 *
@@ -575,7 +575,7 @@ osStatus_t osKernelGetInfo (osVersion_t *version, char *id_buf, uint32_t id_size
 * @version 1.0
 */
 osKernelState_t osKernelGetState (void);
- 
+
 /**
 * @brief Starts the kernel.
 *
@@ -584,7 +584,7 @@ osKernelState_t osKernelGetState (void);
 * @version 1.0
 */
 osStatus_t osKernelStart (void);
- 
+
 /**
 * @brief Locks the kernel.
 *
@@ -593,7 +593,7 @@ osStatus_t osKernelStart (void);
 * @version 1.0
 */
 int32_t osKernelLock (void);
- 
+
 /**
 * @brief Unlocks the kernel.
 *
@@ -602,7 +602,7 @@ int32_t osKernelLock (void);
 * @version 1.0
 */
 int32_t osKernelUnlock (void);
- 
+
 /**
 * @brief Restores the previous lock state of the kernel.
 *
@@ -612,15 +612,15 @@ int32_t osKernelUnlock (void);
 * @version 1.0
 */
 int32_t osKernelRestoreLock (int32_t lock);
- 
+
 uint32_t osKernelSuspend (void);
- 
+
 void osKernelResume (uint32_t sleep_ticks);
 
 /// Get the RTOS kernel tick count.
 /// \return RTOS kernel current tick count.
 uint32_t osKernelGetTickCount (void);
- 
+
 
 
 /**
@@ -631,7 +631,7 @@ uint32_t osKernelGetTickCount (void);
 * @version 1.0
 */
 uint32_t osKernelGetTickFreq (void);
- 
+
 /**
 * @brief Obtains the kernel system timer.
 *
@@ -640,7 +640,7 @@ uint32_t osKernelGetTickFreq (void);
 * @version 1.0
 */
 uint32_t osKernelGetSysTimerCount (void);
- 
+
 /**
 * @brief Obtains the frequency of the system timer.
 *
@@ -649,13 +649,15 @@ uint32_t osKernelGetSysTimerCount (void);
 * @version 1.0
 */
 uint32_t osKernelGetSysTimerFreq (void);
- 
- 
+
+
 //  ==== Thread Management Functions ====
- 
+
 /**
 * @brief Creates an active thread.
 *
+* The task priority ranges from 9 (highest priority) to 38 (lowest priority). {@code LOSCFG_BASE_CORE_TSK_LIMIT} declared in target_config.h specifies the
+maximum number of tasks running in this system.
 * @param func Indicates the entry of the thread callback function.
 * @param argument Indicates the pointer to the argument passed to the thread.
 * @param attr Indicates the thread attributes.
@@ -664,7 +666,7 @@ uint32_t osKernelGetSysTimerFreq (void);
 * @version 1.0
 */
 osThreadId_t osThreadNew (osThreadFunc_t func, void *argument, const osThreadAttr_t *attr);
- 
+
 /**
 * @brief Obtains the name of a thread.
 *
@@ -674,7 +676,7 @@ osThreadId_t osThreadNew (osThreadFunc_t func, void *argument, const osThreadAtt
 * @version 1.0
 */
 const char *osThreadGetName (osThreadId_t thread_id);
- 
+
 /**
 * @brief Obtains the ID of the currently running thread.
 *
@@ -683,7 +685,7 @@ const char *osThreadGetName (osThreadId_t thread_id);
 * @version 1.0
 */
 osThreadId_t osThreadGetId (void);
- 
+
 
 /**
 * @brief Obtains the state of a thread.
@@ -694,7 +696,7 @@ osThreadId_t osThreadGetId (void);
 * @version 1.0
 */
 osThreadState_t osThreadGetState (osThreadId_t thread_id);
- 
+
 /**
 * @brief Obtains the stack size of a thread.
 *
@@ -704,7 +706,7 @@ osThreadState_t osThreadGetState (osThreadId_t thread_id);
 * @version 1.0
 */
 uint32_t osThreadGetStackSize (osThreadId_t thread_id);
- 
+
 /**
 * @brief Obtains the size of the available stack space for a thread based on the stack watermark.
 *
@@ -714,7 +716,7 @@ uint32_t osThreadGetStackSize (osThreadId_t thread_id);
 * @version 1.0
 */
 uint32_t osThreadGetStackSpace (osThreadId_t thread_id);
- 
+
 /**
 * @brief Changes the priority of a thread.
 *
@@ -735,7 +737,7 @@ osStatus_t osThreadSetPriority (osThreadId_t thread_id, osPriority_t priority);
 * @version 1.0
 */
 osPriority_t osThreadGetPriority (osThreadId_t thread_id);
- 
+
 /**
 * @brief Sets the currently running thread to the ready state.
 *
@@ -744,7 +746,7 @@ osPriority_t osThreadGetPriority (osThreadId_t thread_id);
 * @version 1.0
 */
 osStatus_t osThreadYield (void);
- 
+
 /**
 * @brief Suspends a thread.
 *
@@ -754,7 +756,7 @@ osStatus_t osThreadYield (void);
 * @version 1.0
 */
 osStatus_t osThreadSuspend (osThreadId_t thread_id);
- 
+
 /**
 * @brief Resumes a thread from the suspended state.
 *
@@ -764,13 +766,13 @@ osStatus_t osThreadSuspend (osThreadId_t thread_id);
 * @version 1.0
 */
 osStatus_t osThreadResume (osThreadId_t thread_id);
- 
+
 osStatus_t osThreadDetach (osThreadId_t thread_id);
- 
+
 osStatus_t osThreadJoin (osThreadId_t thread_id);
- 
+
 void osThreadExit (void);
- 
+
 /**
 * @brief Terminates a thread.
 *
@@ -780,7 +782,7 @@ void osThreadExit (void);
 * @version 1.0
 */
 osStatus_t osThreadTerminate (osThreadId_t thread_id);
- 
+
 /**
 * @brief Obtains the number of active threads.
 *
@@ -789,23 +791,23 @@ osStatus_t osThreadTerminate (osThreadId_t thread_id);
 * @version 1.0
 */
 uint32_t osThreadGetCount (void);
- 
+
 uint32_t osThreadEnumerate (osThreadId_t *thread_array, uint32_t array_items);
- 
- 
+
+
 //  ==== Thread Flags Functions ====
- 
+
 uint32_t osThreadFlagsSet (osThreadId_t thread_id, uint32_t flags);
- 
+
 uint32_t osThreadFlagsClear (uint32_t flags);
- 
+
 uint32_t osThreadFlagsGet (void);
- 
+
 uint32_t osThreadFlagsWait (uint32_t flags, uint32_t options, uint32_t timeout);
- 
- 
+
+
 //  ==== Generic Wait Functions ====
- 
+
 /**
 * @brief Waits for a period of time.
 *
@@ -815,23 +817,26 @@ uint32_t osThreadFlagsWait (uint32_t flags, uint32_t options, uint32_t timeout);
 * @version 1.0
 */
 osStatus_t osDelay (uint32_t ticks);
- 
+
 /**
 * @brief Waits until a specified time arrives.
 *
+* This function handles the overflow of the system timer. Note that the maximum value of this parameter is (2^31 - 1) ticks.
 * @param ticks Indicates the number of ticks converted from the absolute time.
 * @return Returns the CMSIS-RTOS running result.
 * @since 1.0
 * @version 1.0
 */
 osStatus_t osDelayUntil (uint32_t ticks);
- 
- 
+
+
 //  ==== Timer Management Functions ====
- 
+
 /**
 * @brief Creates and initializes a timer.
 *
+* This function creates a timer associated with the arguments callback function. The timer stays in the stopped state until OSTimerStart is used to start the timer.
+* The timer precision is 1000 / LOSCFG_BASE_CORE_TICK_PER_SECOND ms(LOSCFG_BASE_CORE_TICK_PER_SECOND is defined in the traget_config.h).
 * @param func Indicates the entry of the timer callback function.
 * @param type Indicates the timer type.
 * @param argument Indicates the pointer to the argument used in timer callback.
@@ -841,7 +846,7 @@ osStatus_t osDelayUntil (uint32_t ticks);
 * @version 1.0
 */
 osTimerId_t osTimerNew (osTimerFunc_t func, osTimerType_t type, void *argument, const osTimerAttr_t *attr);
- 
+
 /**
 * @brief Obtains the timer name.
 *
@@ -851,7 +856,7 @@ osTimerId_t osTimerNew (osTimerFunc_t func, osTimerType_t type, void *argument, 
 * @version 1.0
 */
 const char *osTimerGetName (osTimerId_t timer_id);
- 
+
 /**
 * @brief Starts or restarts a timer.
 *
@@ -862,7 +867,7 @@ const char *osTimerGetName (osTimerId_t timer_id);
 * @version 1.0
 */
 osStatus_t osTimerStart (osTimerId_t timer_id, uint32_t ticks);
- 
+
 /**
 * @brief Stops a timer.
 *
@@ -872,7 +877,7 @@ osStatus_t osTimerStart (osTimerId_t timer_id, uint32_t ticks);
 * @version 1.0
 */
 osStatus_t osTimerStop (osTimerId_t timer_id);
- 
+
 /**
 * @brief Checks whether a timer is running.
 *
@@ -882,7 +887,7 @@ osStatus_t osTimerStop (osTimerId_t timer_id);
 * @version 1.0
 */
 uint32_t osTimerIsRunning (osTimerId_t timer_id);
- 
+
 /**
 * @brief Deletes a timer.
 *
@@ -892,10 +897,10 @@ uint32_t osTimerIsRunning (osTimerId_t timer_id);
 * @version 1.0
 */
 osStatus_t osTimerDelete (osTimerId_t timer_id);
- 
- 
+
+
 //  ==== Event Flags Management Functions ====
- 
+
 /**
 * @brief Creates and initializes an event flags object.
 *
@@ -905,7 +910,7 @@ osStatus_t osTimerDelete (osTimerId_t timer_id);
 * @version 1.0
 */
 osEventFlagsId_t osEventFlagsNew (const osEventFlagsAttr_t *attr);
- 
+
 /**
 * @brief Obtains the name of an event flags object.
 *
@@ -915,7 +920,7 @@ osEventFlagsId_t osEventFlagsNew (const osEventFlagsAttr_t *attr);
 * @version 1.0
 */
 const char *osEventFlagsGetName (osEventFlagsId_t ef_id);
- 
+
 /**
 * @brief Sets event flags.
 *
@@ -926,7 +931,7 @@ const char *osEventFlagsGetName (osEventFlagsId_t ef_id);
 * @version 1.0
 */
 uint32_t osEventFlagsSet (osEventFlagsId_t ef_id, uint32_t flags);
- 
+
 /**
 * @brief Clears event flags.
 *
@@ -937,7 +942,7 @@ uint32_t osEventFlagsSet (osEventFlagsId_t ef_id, uint32_t flags);
 * @version 1.0
 */
 uint32_t osEventFlagsClear (osEventFlagsId_t ef_id, uint32_t flags);
- 
+
 /**
 * @brief Obtains event flags.
 *
@@ -947,10 +952,11 @@ uint32_t osEventFlagsClear (osEventFlagsId_t ef_id, uint32_t flags);
 * @version 1.0
 */
 uint32_t osEventFlagsGet (osEventFlagsId_t ef_id);
- 
+
 /**
 * @brief Waits for event flags to trigger.
 *
+* This function is blocked if the specified event flags are not set via {@code flags}.
 * @param ef_id Indicates the event flags ID, which is obtained using osEventFlagsNew.
 * @param flags Indicates the event flags to trigger.
 * @param options Indicates the configuration of the event flags to trigger.
@@ -960,7 +966,7 @@ uint32_t osEventFlagsGet (osEventFlagsId_t ef_id);
 * @version 1.0
 */
 uint32_t osEventFlagsWait (osEventFlagsId_t ef_id, uint32_t flags, uint32_t options, uint32_t timeout);
- 
+
 /**
 * @brief Deletes an event flags object.
 *
@@ -970,10 +976,10 @@ uint32_t osEventFlagsWait (osEventFlagsId_t ef_id, uint32_t flags, uint32_t opti
 * @version 1.0
 */
 osStatus_t osEventFlagsDelete (osEventFlagsId_t ef_id);
- 
- 
+
+
 //  ==== Mutex Management Functions ====
- 
+
 /**
 * @brief Creates and initializes a mutex.
 *
@@ -983,9 +989,9 @@ osStatus_t osEventFlagsDelete (osEventFlagsId_t ef_id);
 * @version 1.0
 */
 osMutexId_t osMutexNew (const osMutexAttr_t *attr);
- 
+
 const char *osMutexGetName (osMutexId_t mutex_id);
- 
+
 /**
 * @brief Obtains a mutex.
 *
@@ -996,7 +1002,7 @@ const char *osMutexGetName (osMutexId_t mutex_id);
 * @version 1.0
 */
 osStatus_t osMutexAcquire (osMutexId_t mutex_id, uint32_t timeout);
- 
+
 /**
 * @brief Releases a mutex.
 *
@@ -1006,7 +1012,7 @@ osStatus_t osMutexAcquire (osMutexId_t mutex_id, uint32_t timeout);
 * @version 1.0
 */
 osStatus_t osMutexRelease (osMutexId_t mutex_id);
- 
+
 /**
 * @brief Obtains the thread ID of the currently acquired mutex.
 *
@@ -1016,7 +1022,7 @@ osStatus_t osMutexRelease (osMutexId_t mutex_id);
 * @version 1.0
 */
 osThreadId_t osMutexGetOwner (osMutexId_t mutex_id);
- 
+
 /**
 * @brief Deletes a mutex.
 *
@@ -1026,10 +1032,10 @@ osThreadId_t osMutexGetOwner (osMutexId_t mutex_id);
 * @version 1.0
 */
 osStatus_t osMutexDelete (osMutexId_t mutex_id);
- 
- 
+
+
 //  ==== Semaphore Management Functions ====
- 
+
 /**
 * @brief Creates and initializes a semaphore object.
 *
@@ -1041,20 +1047,20 @@ osStatus_t osMutexDelete (osMutexId_t mutex_id);
 * @version 1.0
 */
 osSemaphoreId_t osSemaphoreNew (uint32_t max_count, uint32_t initial_count, const osSemaphoreAttr_t *attr);
- 
+
 const char *osSemaphoreGetName (osSemaphoreId_t semaphore_id);
- 
+
 /**
 * @brief Acquires a token of a semaphore object.
 *
 * @param semaphore_id Indicates the semaphore ID, which is obtained using osSemaphoreNew.
-* @param timeout Indicates the timeout duration.
+* @param timeout Indicates the timeout duration, in ticks.
 * @return Returns the CMSIS-RTOS running result.
 * @since 1.0
 * @version 1.0
 */
 osStatus_t osSemaphoreAcquire (osSemaphoreId_t semaphore_id, uint32_t timeout);
- 
+
 /**
 * @brief Releases a token of a semaphore object.
 *
@@ -1064,7 +1070,7 @@ osStatus_t osSemaphoreAcquire (osSemaphoreId_t semaphore_id, uint32_t timeout);
 * @version 1.0
 */
 osStatus_t osSemaphoreRelease (osSemaphoreId_t semaphore_id);
- 
+
 /**
 * @brief Obtains the number of available tokens of a semaphore object.
 *
@@ -1074,7 +1080,7 @@ osStatus_t osSemaphoreRelease (osSemaphoreId_t semaphore_id);
 * @version 1.0
 */
 uint32_t osSemaphoreGetCount (osSemaphoreId_t semaphore_id);
- 
+
 /**
 * @brief Deletes a semaphore object.
 *
@@ -1084,31 +1090,31 @@ uint32_t osSemaphoreGetCount (osSemaphoreId_t semaphore_id);
 * @version 1.0
 */
 osStatus_t osSemaphoreDelete (osSemaphoreId_t semaphore_id);
- 
- 
+
+
 //  ==== Memory Pool Management Functions ====
- 
+
 osMemoryPoolId_t osMemoryPoolNew (uint32_t block_count, uint32_t block_size, const osMemoryPoolAttr_t *attr);
- 
+
 const char *osMemoryPoolGetName (osMemoryPoolId_t mp_id);
- 
+
 void *osMemoryPoolAlloc (osMemoryPoolId_t mp_id, uint32_t timeout);
- 
+
 osStatus_t osMemoryPoolFree (osMemoryPoolId_t mp_id, void *block);
- 
+
 uint32_t osMemoryPoolGetCapacity (osMemoryPoolId_t mp_id);
- 
+
 uint32_t osMemoryPoolGetBlockSize (osMemoryPoolId_t mp_id);
- 
+
 uint32_t osMemoryPoolGetCount (osMemoryPoolId_t mp_id);
- 
+
 uint32_t osMemoryPoolGetSpace (osMemoryPoolId_t mp_id);
- 
+
 osStatus_t osMemoryPoolDelete (osMemoryPoolId_t mp_id);
- 
- 
+
+
 //  ==== Message Queue Management Functions ====
- 
+
 /**
 * @brief Creates and initializes a message queue.
 *
@@ -1120,35 +1126,35 @@ osStatus_t osMemoryPoolDelete (osMemoryPoolId_t mp_id);
 * @version 1.0
 */
 osMessageQueueId_t osMessageQueueNew (uint32_t msg_count, uint32_t msg_size, const osMessageQueueAttr_t *attr);
- 
+
 const char *osMessageQueueGetName (osMessageQueueId_t mq_id);
- 
+
 /**
 * @brief Places a message in a message queue.
 *
 * @param mq_id Indicates the message queue ID, which is obtained using osMessageQueueNew.
 * @param msg_ptr Indicates the pointer to the buffer for storing the message to be placed in the message queue.
-* @param msg_prio Indicates the priority of the message to be placed in the message queue.
+* @param msg_prio Indicates the priority of the message to be placed in the message queue. This parameter is not used.
 * @param timeout Indicates the timeout duration.
 * @return Returns the CMSIS-RTOS running result.
 * @since 1.0
 * @version 1.0
 */
 osStatus_t osMessageQueuePut (osMessageQueueId_t mq_id, const void *msg_ptr, uint8_t msg_prio, uint32_t timeout);
- 
+
 /**
 * @brief Obtains a message in a message queue.
 *
 * @param mq_id Indicates the message queue ID, which is obtained using osMessageQueueNew.
 * @param msg_ptr Indicates the pointer to the buffer for storing the message to be retrieved from the message queue.
-* @param msg_prio Indicates the pointer to the buffer for storing the priority of the message to be retrieved from the message queue. This parameter can be set to NULL.
+* @param msg_prio Indicates the pointer to the buffer for storing the priority of the message to be retrieved from the message queue. This parameter is not used.
 * @param timeout Indicates the timeout duration.
 * @return Returns the CMSIS-RTOS running result.
 * @since 1.0
 * @version 1.0
 */
 osStatus_t osMessageQueueGet (osMessageQueueId_t mq_id, void *msg_ptr, uint8_t *msg_prio, uint32_t timeout);
- 
+
 /**
 * @brief Obtains the maximum number of messages that can be placed in a message queue.
 *
@@ -1158,7 +1164,7 @@ osStatus_t osMessageQueueGet (osMessageQueueId_t mq_id, void *msg_ptr, uint8_t *
 * @version 1.0
 */
 uint32_t osMessageQueueGetCapacity (osMessageQueueId_t mq_id);
- 
+
 /**
 * @brief Obtains the maximum size of messages that can be placed in a message queue.
 *
@@ -1168,7 +1174,7 @@ uint32_t osMessageQueueGetCapacity (osMessageQueueId_t mq_id);
 * @version 1.0
 */
 uint32_t osMessageQueueGetMsgSize (osMessageQueueId_t mq_id);
- 
+
 /**
 * @brief Obtains the number of queued messages in a message queue.
 *
@@ -1178,7 +1184,7 @@ uint32_t osMessageQueueGetMsgSize (osMessageQueueId_t mq_id);
 * @version 1.0
 */
 uint32_t osMessageQueueGetCount (osMessageQueueId_t mq_id);
- 
+
 /**
 * @brief Obtains the number of available slots for messages in a message queue.
 *
@@ -1188,9 +1194,9 @@ uint32_t osMessageQueueGetCount (osMessageQueueId_t mq_id);
 * @version 1.0
 */
 uint32_t osMessageQueueGetSpace (osMessageQueueId_t mq_id);
- 
+
 osStatus_t osMessageQueueReset (osMessageQueueId_t mq_id);
- 
+
 /**
 * @brief Deletes a message queue.
 *
@@ -1200,10 +1206,10 @@ osStatus_t osMessageQueueReset (osMessageQueueId_t mq_id);
 * @version 1.0
 */
 osStatus_t osMessageQueueDelete (osMessageQueueId_t mq_id);
- 
- 
+
+
 #ifdef  __cplusplus
 }
 #endif
- 
+
 #endif  // CMSIS_OS2_H_
